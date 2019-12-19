@@ -12,23 +12,22 @@ const PersonForm = ({ values, errors, touched, status }) => {
 
   // added useEffect in order to see the changes happening after we submit the form
   useEffect(() => {
-    console.log(`status has been updated`, status);
-
+    // console.log(`status has been updated`, status);
     // rendering the data we got after the form was submitted
     status && setPerson(person => [...person, status]);
   }, [status])
   return (
     <div>React Formik
       <Form>
-        <Field type='name' name='username' placeholder='Username' />
+        <Field id='name' type='name' name='username' placeholder='Username' />
         {touched.username && errors.username && (                       //Validation syntax from YUP
           <p>*{errors.username}</p>
         )}
-        <Field type='password' name='password' placeholder='Password' />
+        <Field id='password' type='password' name='password' placeholder='Password' />
         {touched.password && errors.password && (                       //Validation syntax from YUP
           <p>*{errors.password}</p>
         )}
-        <Field type='email' name='email' placeholder='Email' />
+        <Field id='email' type='email' name='email' placeholder='Email' />
         {touched.email && errors.email && (                             //Validation syntax from YUP
           <p>*{errors.email}</p>
         )}
@@ -40,7 +39,7 @@ const PersonForm = ({ values, errors, touched, status }) => {
 
       {/* adding structure in order to save the data users are putting in */}
       {person.map(e => {
-        return <ul key={e.name}>
+        return <ul key={e.id}>
           <li>Name: {e.username}</li>
           <li>Password: {e.password}</li>
           <li>Email: {e.email}</li>
@@ -73,13 +72,14 @@ const FormikPersonForm = withFormik({
     terms: Yup.boolean().oneOf([true], `Must accept Terms and Conditions`)
   }),
 
-  async handleSubmit(values, { setStatus }) {
+  async handleSubmit(values, { setStatus, resetForm }) {
     console.log(`SUBMITTINGGGG`, values);
 
     try {
       const res = await axios.post(`https://reqres.in/api/users`, values);
       console.log(`Success!!!`, res);
       setStatus(res.data);
+      resetForm();
     }
     catch (err) {
       console.log(err)
