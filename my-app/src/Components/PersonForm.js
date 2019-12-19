@@ -45,15 +45,16 @@ const FormikPersonForm = withFormik({
     password: Yup.string().required(`Give me your password`),
     email: Yup.string().required(`Give me your email`)
   }),
-  handleSubmit(values, formikBag) {
+  async handleSubmit(values, formikBag) {
     console.log(`SUBMITTINGGGG`, values);
 
-    axios
-      .post(`https://reqres.in/api/users`, values)
-      .then(res => {
-        console.log(`Success`, res)
-      })
-      .catch(err => console.log(err.response))
+    try {
+      const res = await axios.post(`https://reqres.in/api/users`, values);
+      console.log(`Success!!!`, res)
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
 })(PersonForm);
 
