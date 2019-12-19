@@ -1,6 +1,7 @@
 import React from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const PersonForm = ({ values, errors, touched }) => {
   console.log(values);
@@ -45,7 +46,14 @@ const FormikPersonForm = withFormik({
     email: Yup.string().required(`Give me your email`)
   }),
   handleSubmit(values, formikBag) {
-    console.log(`SUBMITTINGGGG`)
+    console.log(`SUBMITTINGGGG`, values);
+
+    axios
+      .post(`https://reqres.in/api/users`, values)
+      .then(res => {
+        console.log(`Success`, res)
+      })
+      .catch(err => console.log(err.response))
   }
 })(PersonForm);
 
