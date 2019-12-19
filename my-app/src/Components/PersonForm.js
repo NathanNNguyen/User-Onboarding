@@ -24,7 +24,7 @@ const PersonForm = ({ values, errors, touched }) => {
         <label> Terms of services
           <Field type='checkbox' name='terms' checked={values.terms} />
         </label>
-        <button>Submit!</button>
+        <button type='submit'>Submit!</button>
       </Form>
     </div>
   )
@@ -43,7 +43,10 @@ const FormikPersonForm = withFormik({
     username: Yup.string().required(`Give me your name`),
     password: Yup.string().required(`Give me your password`),
     email: Yup.string().required(`Give me your email`)
-  })
+  }),
+  handleSubmit(values, formikBag) {
+    console.log(`SUBMITTINGGGG`)
+  }
 })(PersonForm);
 
 export default FormikPersonForm;
