@@ -17,8 +17,8 @@ const PersonForm = ({ values, errors, touched, status }) => {
     status && setPerson(person => [...person, status]);
   }, [status])
   return (
-    <div>React Formik
-      <Form>
+    <div className='style'>React Formik
+      <Form className='column'>
         <Field id='name' type='name' name='username' placeholder='Username' />
         {touched.username && errors.username && (                       //Validation syntax from YUP
           <p>*{errors.username}</p>
@@ -72,6 +72,7 @@ const FormikPersonForm = withFormik({
     terms: Yup.boolean().oneOf([true], `Must accept Terms and Conditions`)
   }),
 
+  // setStatus so that we can store the data users are putting in
   async handleSubmit(values, { setStatus, resetForm }) {
     console.log(`SUBMITTINGGGG`, values);
 

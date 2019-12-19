@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import FormikPersonForm from './Components/PersonForm'
+import FormikPersonForm from './Components/PersonForm';
 
 function App() {
   return (
