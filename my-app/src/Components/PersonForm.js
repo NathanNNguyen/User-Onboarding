@@ -4,17 +4,17 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const PersonForm = ({ values, errors, touched, status }) => {
-  console.log(values);
-  console.log(errors);
-  console.log(touched);
+  // console.log(values);
+  // console.log(errors);
+  // console.log(touched);
 
-  const [person, setPerson] = useState([]);
+  const [persons, setPersons] = useState([]);
 
   // added useEffect in order to see the changes happening after we submit the form
   useEffect(() => {
     // console.log(`status has been updated`, status);
     // rendering the data we got after the form was submitted
-    status && setPerson(person => [...person, status]);
+    status && setPersons(persons => [...persons, status]);
   }, [status])
   return (
     <div className='style'>React Formik
@@ -40,23 +40,27 @@ const PersonForm = ({ values, errors, touched, status }) => {
           <option value='ReactII-Dev'>React II Dev</option>
           <option value='Backend-Dev'>Backend Dev</option>
         </Field>
+        {touched.role && errors.role && (
+          <p>*{errors.role}</p>
+        )}
 
         <label> Terms and conditions
           <Field type='checkbox' name='terms' checked={values.terms} />
+          {touched.terms && errors.terms && (
+            <p>*{errors.terms}</p>
+          )}
         </label>
         <button type='submit'>Submit!</button>
       </Form>
 
       {/* adding structure in order to save the data users are putting in */}
-      {person.map(e => {
-        return <ul key={e.id}>
-          <li>Name: {e.username}</li>
-          <li>Password: {e.password}</li>
-          <li>Email: {e.email}</li>
-          <li>Role: {e.role}</li>
+      {persons.map(person => {
+        return <ul key={person.id}>
+          <li>Name: {person.username}</li>
+          <li>Email: {person.email}</li>
+          <li>Role: {person.role}</li>
         </ul>
       })}
-
     </div>
   )
 }
@@ -78,10 +82,10 @@ const FormikPersonForm = withFormik({
 
   //Validation syntax from YUP
   validationSchema: Yup.object().shape({
-    username: Yup.string().required(),
-    password: Yup.string().required(),
-    email: Yup.string().required(),
-    role: Yup.string().required(),
+    username: Yup.string().min(6).required(),
+    password: Yup.string().min(4).required(),
+    email: Yup.string().email().required(),
+    role: Yup.string().oneOf(['UI-Dev', 'UX-Dev', 'ReactI-Dev', 'ReactII-Dev', 'Backend-Dev']).required(),
     terms: Yup.boolean().oneOf([true], `Must accept Terms and Conditions`)
   }),
 
