@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -20,17 +20,17 @@ const PersonForm = ({ values, errors, touched, status }) => {
     <div className='style'>React Formik
       <Form className='column'>
         <Field id='name' type='name' name='username' placeholder='Username' />
-        {touched.username && errors.username && (                       //Validation syntax from YUP
+        <ErrorMessage name="username" />  {/* Better syntax for error messages */}
+
+        {/* {touched.username && errors.username && (                       //Validation syntax from YUP
           <p>*{errors.username}</p>
-        )}
+        )} */}
+
         <Field id='password' type='password' name='password' placeholder='Password' />
-        {touched.password && errors.password && (                       //Validation syntax from YUP
-          <p>*{errors.password}</p>
-        )}
+        <ErrorMessage name="password" />
+
         <Field id='email' type='email' name='email' placeholder='Email' />
-        {touched.email && errors.email && (                             //Validation syntax from YUP
-          <p>*{errors.email}</p>
-        )}
+        <ErrorMessage name="email" />
 
         <Field as='select' id='role' name='role'>
           <option disabled>Choose a role</option>
@@ -74,7 +74,7 @@ const FormikPersonForm = withFormik({
       // Getting the intitial states for these keys values from App.js, if there is none, we can set one up to whichever we want with the 'string' quotation
       username: username || '',
       password: password || '',
-      email: email || '',
+      email: email || 'waffle@syrup.com',
       role: role || 'Choose a role',
       terms: terms || false
     };
@@ -96,6 +96,9 @@ const FormikPersonForm = withFormik({
     try {
       const res = await axios.post(`https://reqres.in/api/users`, values);
       console.log(`Success!!!`, res);
+      if (res.data.email === `waffle@syrup.com`) {
+        alert`waffle@syrup.com is already taken`
+      }
       setStatus(res.data);
       resetForm();
     }
