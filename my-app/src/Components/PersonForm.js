@@ -96,8 +96,10 @@ const FormikPersonForm = withFormik({
       if (res.data.email === `waffle@syrup.com`) {
         alert`waffle@syrup.com is already taken`
       }
-      setStatus(res.data);
-      resetForm();
+      else{
+        setStatus(res.data);
+        resetForm();
+      }
     }
     catch (err) {
       console.log(err)
