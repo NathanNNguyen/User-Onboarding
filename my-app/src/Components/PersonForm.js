@@ -40,15 +40,12 @@ const PersonForm = ({ values, errors, touched, status }) => {
           <option value='ReactII-Dev'>React II Dev</option>
           <option value='Backend-Dev'>Backend Dev</option>
         </Field>
-        {touched.role && errors.role && (
-          <p>*{errors.role}</p>
-        )}
+        <ErrorMessage name="role" />
 
         <label> Terms and conditions
           <Field type='checkbox' name='terms' checked={values.terms} />
-          {touched.terms && errors.terms && (
-            <p>*{errors.terms}</p>
-          )}
+          <ErrorMessage name="terms" />
+
         </label>
         <button type='submit'>Submit!</button>
       </Form>
