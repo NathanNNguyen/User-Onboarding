@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import Person from './Person.js';
 
 const PersonForm = ({ values, errors, touched, status }) => {
   // console.log(values);
@@ -52,15 +53,11 @@ const PersonForm = ({ values, errors, touched, status }) => {
 
       {/* adding structure in order to save the data users are putting in */}
       {persons.map(person => {
-        return <ul key={person.id}>
-          <li>Name: {person.username}</li>
-          <li>Email: {person.email}</li>
-          <li>Role: {person.role}</li>
-        </ul>
+        return <Person key={person.id} username={person.username} email={person.email} role={person.role} />
       })}
     </div>
-  )
-}
+  );
+};
 
 // Formik syntax to wrap around components
 const FormikPersonForm = withFormik({
@@ -71,7 +68,7 @@ const FormikPersonForm = withFormik({
       // Getting the intitial states for these keys values from App.js, if there is none, we can set one up to whichever we want with the 'string' quotation
       username: username || '',
       password: password || '',
-      email: email || 'waffle@syrup.com',
+      email: email || '',
       role: role || 'Choose a role',
       terms: terms || false
     };
@@ -82,7 +79,7 @@ const FormikPersonForm = withFormik({
     username: Yup.string().min(6).required(),
     password: Yup.string().min(4).required(),
     email: Yup.string().email().required(),
-    role: Yup.string().oneOf(['UI-Dev', 'UX-Dev', 'ReactI-Dev', 'ReactII-Dev', 'Backend-Dev']).required(),
+    role: Yup.string().oneOf(['UI-Dev', 'UX-Dev', 'React-I-Dev', 'React-II-Dev', 'Backend-Dev']).required(),
     terms: Yup.boolean().oneOf([true], `Must accept Terms and Conditions`)
   }),
 
@@ -96,7 +93,7 @@ const FormikPersonForm = withFormik({
       if (res.data.email === `waffle@syrup.com`) {
         alert`waffle@syrup.com is already taken`
       }
-      else{
+      else {
         setStatus(res.data);
         resetForm();
       }
