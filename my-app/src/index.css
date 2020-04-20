@@ -1,0 +1,21 @@
+.App {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.style {
+  margin: 2rem auto;
+  box-shadow: 5px 10px 18px #888888;
+  padding: 2%;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+input {
+  margin: 1rem auto;
+}
