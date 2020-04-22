@@ -92,51 +92,54 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={formSubmit}>
-      <label htmlFor="name">
-        Name:
+    <div className='style'>
+      Add new member
+      <form onSubmit={formSubmit} className='column'>
+        <label htmlFor="name">
+          Name:
         <input
-          type="text"
-          name="name"
-          value={formState.name}
-          onChange={inputChange}
-        />
-        {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
-      </label>
-      <label htmlFor="email">
-        Email:
+            type="text"
+            name="name"
+            value={formState.name}
+            onChange={inputChange}
+          />
+          {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
+        </label>
+        <label htmlFor="email">
+          Email:
         <input
-          type="text"
-          name="email"
-          value={formState.email}
-          onChange={inputChange}
-        />
-        {errors.email.length > 0 ? (
-          <p className="error">{errors.email}</p>
-        ) : null}
-      </label>
-      <label htmlFor="role">
-        Role:
+            type="text"
+            name="email"
+            value={formState.email}
+            onChange={inputChange}
+          />
+          {errors.email.length > 0 ? (
+            <p className="error">{errors.email}</p>
+          ) : null}
+        </label>
+        <label htmlFor="role">
+          Role:
         <select id="role" name="role" onChange={inputChange}>
-          <option value='UI-Dev'>UI Dev</option>
-          <option value='UX-Dev'>UX Dev</option>
-          <option value='React-I-Dev'>React I Dev</option>
-          <option value='React-II-Dev'>React II Dev</option>
-          <option value='Backend-Dev'>Backend Dev</option>
-        </select>
+            <option value='UI-Dev'>UI Dev</option>
+            <option value='UX-Dev'>UX Dev</option>
+            <option value='React-I-Dev'>React I Dev</option>
+            <option value='React-II-Dev'>React II Dev</option>
+            <option value='Backend-Dev'>Backend Dev</option>
+          </select>
+        </label>
+        <label htmlFor="terms" className="terms">
+          <input
+            type="checkbox"
+            name="terms"
+            checked={formState.terms}
+            onChange={inputChange}
+          />
+          Terms & Conditions
       </label>
-      <label htmlFor="terms" className="terms">
-        <input
-          type="checkbox"
-          name="terms"
-          checked={formState.terms}
-          onChange={inputChange}
-        />
-        Terms & Conditions
-      </label>
-      {/* displaying our post request data */}
-      <pre>{JSON.stringify(post, null, 2)}</pre>
-      <button disabled={buttonDisabled}>Submit</button>
-    </form>
+        {/* displaying our post request data */}
+        <pre>{JSON.stringify(post, null, 2)}</pre>
+        <button disabled={buttonDisabled}>Submit</button>
+      </form>
+    </div>
   );
 }
