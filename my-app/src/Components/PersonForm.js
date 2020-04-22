@@ -21,7 +21,7 @@ const PersonForm = ({ values, errors, touched, status }) => {
     <div className='style'>React Formik
       <Form className='column'>
         <Field id='name' type='name' name='username' placeholder='Username' />
-        <ErrorMessage name="username" />  {/* Better syntax for error messages */}
+        <ErrorMessage name="username" />  {/*Better syntax for error messages */}
 
         {/* {touched.username && errors.username && (                       //Validation syntax from YUP
           <p>*{errors.username}</p>
@@ -37,8 +37,8 @@ const PersonForm = ({ values, errors, touched, status }) => {
           <option disabled>Choose a role</option>
           <option value='UI-Dev'>UI Dev</option>
           <option value='UX-Dev'>UX Dev</option>
-          <option value='ReactI-Dev'>React I Dev</option>
-          <option value='ReactII-Dev'>React II Dev</option>
+          <option value='React-I-Dev'>React I Dev</option>
+          <option value='React-II-Dev'>React II Dev</option>
           <option value='Backend-Dev'>Backend Dev</option>
         </Field>
         <ErrorMessage name="role" />

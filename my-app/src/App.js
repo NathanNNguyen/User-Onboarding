@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import PersonForm from './Components/PersonForm';
+// import PersonForm from './Components/PersonForm.js';
+import Form from './Components/Form.js'
 
 function App() {
   return (
     <div className="App">
-      <PersonForm />
+      {/* <PersonForm /> */}
+      <Form />
     </div>
   );
 }
