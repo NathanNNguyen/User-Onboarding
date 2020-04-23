@@ -41,22 +41,38 @@ export default function Form() {
     });
   }, [formState]);
 
-  const formSubmit = e => {
+  const formSubmit = async e => {
     e.preventDefault();
-    axios
-      .post("https://reqres.in/api/users", formState)
-      .then(res => {
-        setPost(res.data); // get just the form data from the REST api
-        console.log("success", post);
-        // reset form if successful
-        setFormState({
-          name: "",
-          email: "",
-          terms: "",
-          role: "",
-        });
-      })
-      .catch(err => console.log(err.response));
+    try {
+      const res = await axios.post("https://reqres.in/api/users", formState);
+      console.log(res)
+      console.log(res.data)
+      setPost([...post, res.data]);
+      setFormState({
+        name: "",
+        email: "",
+        terms: "",
+        role: "",
+      });
+    }
+    catch (err) {
+      console.log(err.response)
+    }
+
+    // axios
+    // .post("https://reqres.in/api/users", formState)
+    // .then(res => {
+    //   setPost(res.data); // get just the form data from the REST api
+    //   console.log("success", post);
+    //   // reset form if successful
+    //   setFormState({
+    //     name: "",
+    //     email: "",
+    //     terms: "",
+    //     role: "",
+    //   });
+    // })
+    // .catch(err => console.log(err.response));
   };
 
   const validateChange = e => {
